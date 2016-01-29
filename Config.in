@@ -6,9 +6,15 @@ config HAVE_DOT_CONFIG
 	help
 	  Indicate that have an included file.
 
+
+config CONFIG_CROSS_COMPILE
+	string "Cross compile toolchains prefix"
+	default "arm-none-linux-gnueabi-"
+
 source "board/Config.in"
 
 source "driver/Config.in.driver"
+
 
 config CONFIG_PROJECT
 	string
@@ -19,7 +25,7 @@ config CONFIG_PROJECT
 
 choice
 	prompt "Image Loading Strategy"
-	default CONFIG_LOAD_UBOOT
+	default CONFIG_LOAD_LINUX
 
 #
 # Load U-Boot
@@ -101,18 +107,18 @@ config CONFIG_OS_MEM_SIZE
 	
 config CONFIG_LINUX_KERNEL_ARG_STRING
 	string "Linux kernel parameters"
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9260EK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9261EK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9263EK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9RLEK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9XEEK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9G10EK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9G20EK && !CONFIG_SDCARD
-	default "mem=128M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9G45EK && !CONFIG_SDCARD
-	default "mem=128M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9G45EKES && !CONFIG_SDCARD
-	default "mem=128M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9X5EK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9M10EK && !CONFIG_SDCARD
-	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:4M(bootstrap),60M(rootfs),-(spare) root=/dev/mtdblock1 rw rootfstype=jffs2" if CONFIG_AT91SAM9M10EKES && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9260EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9261EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9263EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9RLEK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9XEEK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9G10EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9G20EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9G45EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9G45EKES && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9X5EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9M10EK && !CONFIG_SDCARD
+	default "mem=64M console=ttyS0,115200 mtdparts=atmel_nand:1M(Bootstrap),2M(Kernel),3M(Rootfs),4M(Appliaction),-(UserData) root=1f02 ro rootfstype=cramfs" if CONFIG_AT91SAM9M10EKES && !CONFIG_SDCARD
 	default "mem=64M console=ttyS0,115200 root=/dev/mmcblk0p2 rootdelay=2" if CONFIG_AT91SAM9RLEK && CONFIG_SDCARD
 	default "mem=64M console=ttyS0,115200 root=/dev/mmcblk0p2 rootdelay=2" if CONFIG_AT91SAM9G10EK && CONFIG_SDCARD
 	default "mem=64M console=ttyS0,115200 root=/dev/mmcblk0p2 rootdelay=2" if CONFIG_AT91SAM9G20EK && CONFIG_SDCARD
@@ -134,13 +140,15 @@ config CONFIG_OS_IMAGE_NAME
 
 config CONFIG_OS_IMG_SIZE
 	string "OS Image Size"
-	default "0x280000"
+	default "0x200000"
 
 config CONFIG_LINUX_IMG_NAND_OFFSET
 	depends on CONFIG_NANDFLASH
 	string "NandFlash offset for Linux kernel"
-	default "0x200000"
+	default "0x100000"
 endmenu
+
+source Config.in.fastboot
 
 config CONFIG_OS_IMAGE_NAME
 	depends on CONFIG_SDCARD && CONFIG_LOAD_UBOOT
@@ -291,14 +299,14 @@ config CONFIG_JUMP_ADDR
 	default "0x72000000" if CONFIG_AT91SAM9G45EK
 	default "0x72000000" if CONFIG_AT91SAM9M10EK
 	default "0x72000000" if CONFIG_AT91SAM9M10EKES
-	default "0x22000000" if CONFIG_AT91SAM9G20EK
-	default "0x22000000" if CONFIG_AT91SAM9263EK
-	default "0x22000000" if CONFIG_AT91SAM9261EK
-	default "0x22000000" if CONFIG_AT91SAM9260EK
-	default "0x22000000" if CONFIG_AT91SAM9RLEK
-	default "0x22000000" if CONFIG_AT91SAM9G10EK
-	default "0x22000000" if CONFIG_AT91SAM9X5EK
-	default "0x22000000"
+	default "0x20008000" if CONFIG_AT91SAM9G20EK
+	default "0x20008000" if CONFIG_AT91SAM9263EK
+	default "0x20008000" if CONFIG_AT91SAM9261EK
+	default "0x20008000" if CONFIG_AT91SAM9260EK
+	default "0x20008000" if CONFIG_AT91SAM9RLEK
+	default "0x20008000" if CONFIG_AT91SAM9G10EK
+	default "0x20008000" if CONFIG_AT91SAM9X5EK
+	default "0x20008000"
 	help
 	  The entry point to which the bootstrap will pass control.
 
@@ -361,6 +369,7 @@ config CONFIG_HW_INIT
 
 config CONFIG_USER_HW_INIT
 	bool "Call User specific Hardware Initialization"
+	default y
 	help
 	  Initialize Hardware
 

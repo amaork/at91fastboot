@@ -1,13 +1,11 @@
 config CONFIG_SX_AT91
 	bool "Build 'sx_at91' an accurate X-Modem for minicom"
-	default y
 	help
 	  Minicom X-Modem is unreliable, this works.
 
 
 config CONFIG_RAW_AT91
 	bool "Build 'raw_at91' for downloading the u-boot environment via minicom"
-	default y
 	help
 	  If you cut and paste a file to an U-Boot terminal,
 	  U-Boot cannot handle this.

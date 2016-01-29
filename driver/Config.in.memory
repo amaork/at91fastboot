@@ -80,7 +80,7 @@ config	CONFIG_PSRAM
 
 choice
 	prompt "Flash memory technology"
-	default CONFIG_DATAFLASH
+	default CONFIG_NANDFLASH
 	help
 	  Select memory for at91bootstrap
 

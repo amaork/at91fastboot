@@ -4,13 +4,28 @@ config	HAVE_DOT_CONFIG
 
 config CONFIG_BOARDNAME
 	string "Board Name"
-	default "at91sam9260ek"
+	default "at91sam9260ek" if CONFIG_AT91SAM9260EK
+	default "at91sam9261ek"	if CONFIG_AT91SAM9261EK
+	default "at91sam9263ek"	if CONFIG_AT91SAM9263EK
+	default "at91sam9rlek"	if CONFIG_AT91SAM9RLEK
+	default "at91sam9xeek"	if CONFIG_AT91SAM9XEEK
+	default "at91sam9g10ek"	if CONFIG_AT91SAM9G10EK
+	default "at91sam9g20ek"	if CONFIG_AT91SAM9G20EK
+	default "at91sam9g45ek"	if CONFIG_AT91SAM9G45EK
+	default "at91sam9g45ekes" if CONFIG_AT91SAM9G45EKES
+	default "at91sam9m10ek"	  if CONFIG_AT91SAM9M10EK
+	default "at91sam9m10ekes" if CONFIG_AT91SAM9M10EKES
+	default "at91sam9x5ek"	  if CONFIG_AT91SAM9X5EK
+	default "at91cap9adk"	  if CONFIG_AT91CAP9ADK
+	default "at91cap9stk"	  if CONFIG_AT91CAP9STK
+	default "afeb9260"		  if CONFIG_AFEB9260
+
 	help
 	  Name of the target
 
 choice
 	prompt "Board Type"
-	default	CONFIG_AT91SAM9260EK
+	default	CONFIG_AT91SAM9G20EK
 	help
 	  Select which board you want to build for
 

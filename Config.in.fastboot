@@ -1,0 +1,20 @@
+menuconfig CONFIG_LINUX_FASTBOOT
+	bool "Linux fastboot"
+	default n
+
+config CONFIG_DISABLE_CONSOLE
+	bool "Disable console output during kernel bootup"
+	default n
+	depends on CONFIG_LINUX_FASTBOOT
+
+config CONFIG_PRESET_LPJ
+	bool "Preset LPJ value avoid the cost associated with calibrating loops_per_jiffy at each boot time"
+	default n
+	depends on CONFIG_LINUX_FASTBOOT
+
+config CONFIG_LPJ_VALUE
+	string "LPJ Preset value"
+	default "989184" 
+	depends on CONFIG_PRESET_LPJ && CONFIG_LINUX_FASTBOOT 
+
+

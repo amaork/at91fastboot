@@ -209,6 +209,7 @@ typedef struct image_header {
     unsigned char ih_name[32];
 } image_header_t;
 
+#if 0
 static long ntohl(unsigned long dat)
 {
     return (((dat & 0x000000FF) << 24)
@@ -217,6 +218,7 @@ static long ntohl(unsigned long dat)
             | ((dat & 0x00FF0000) >> 8)
         );
 }
+#endif
 
 static void setup_cmdline_tag(struct tag *tag, char *commandline)
 {
@@ -359,23 +361,13 @@ void LoadLinux()
 
     void (*theKernel) (int zero, int arch, unsigned int params);
 
-    image_header_t *hdr;
-
 #ifdef CONFIG_DATAFLASH
     load_df(AT91C_SPI_PCS_DATAFLASH, IMG_ADDRESS, IMG_SIZE, JUMP_ADDR);
 #endif
 #ifdef CONFIG_NANDFLASH
-    //read_nandflash((unsigned char *)JUMP_ADDR, (unsigned long)IMG_ADDRESS,(int)IMG_SIZE);
-
 	dbg_log(1, "Start done!");	
-	#if 0
-	read_nandflash((unsigned char *)0x20007fc0, 0x100000, 0x280000);
-	read_nandflash((unsigned char *)0x20a00000, 0x380000, 0x500000);
-	read_nandflash((unsigned char *)0x20a00000, 0x380000, 0x2a1100);
-	#endif
-
-	read_nandflash((unsigned char *)0x20008000, 0x100000, 0x200000);
-	//read_nandflash((unsigned char *)0x20a00000, 0x500000, 0x220000);
+	
+	read_nandflash((unsigned char *)JUMP_ADDR, LINUX_IMG_NAND_OFFSET, OS_IMG_SIZE);
 
 	dbg_log(1, "Read done!");	
 
@@ -384,50 +376,11 @@ void LoadLinux()
     load_SDCard((void *)JUMP_ADDR);
 #endif
 	
-	#if 0
-    hdr = (image_header_t *) JUMP_ADDR;
-    if (ntohl(hdr->ih_magic) != IMAGE_MAGIC) {
-        dbg_log(1, "*** Bad Image Magic Number found! %d\n\r",
-                ntohl(hdr->ih_magic));
-        return;
-    }
-
-    len = ntohl(hdr->ih_size);
-    load_addr = ntohl(hdr->ih_load);
-    ep = ntohl(hdr->ih_ep);
-    dbg_log(1, "Image size: %d, load_addr: %x, ep: %x\n\r", len, load_addr, ep);
-
-    //if (hdr->ih_comp != 0) {
-    //    dbg_log(1, "Compressed U-Boot Image has not been supported yet!\n\r");
-    //    return;
-    //}
-	#endif
-
-	#if 0
-	len = 0x19ad2c;
-	load_addr = 0x20008000;
-	ep = 0x20008000;
-	#endif
-
-	#if 1
-	len = 0x33d1a0;
-	load_addr = 0x20008000;
-	ep = 0x20008000;
-	#endif
-	
+	len = OS_IMG_SIZE;
+	load_addr = JUMP_ADDR;
+	ep = JUMP_ADDR;
 	
     theKernel = (void (*)(int, int, unsigned int))ep;
-
-    //clean_environment();
-	
-    dbg_log(1,
-            "relocating linux kernel, dst: %x, src: %x, len: %d, machid: %d\n\r",
-            load_addr, (unsigned long)JUMP_ADDR + sizeof (image_header_t), len,
-            MACH_TYPE);
-	#if 0
-    memcpy((void *)load_addr,
-           (void *)((unsigned long)JUMP_ADDR + sizeof (image_header_t)), len);
-	#endif
 
     dbg_log(1, "... %d bytes data transferred!\n\r", len);
 
